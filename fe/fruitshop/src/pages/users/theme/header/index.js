@@ -7,12 +7,53 @@ import {
     AiOutlineGithub,
     AiOutlineUser,
     AiOutlineMail,
+    AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { formatter } from "utils/formatter";
-
+import { ROUTERS } from "utils/router";
+import { useState } from "react";
 
 const Header = () => {
+
+    const [menus, setMenus] = useState([
+        {
+            name: "Trang chủ",
+            path: ROUTERS.USER.HOME
+        },
+        {
+            name: "Cửa hàng",
+            path: ROUTERS.USER.SHOP
+        },
+        {
+            name: "Sản phẩm",
+            path: ROUTERS.USER.PRODUCTS,
+            isShowSubMenu: false,
+            child: [
+                {
+                    name: "Thịt",
+                    path: ""
+                },
+                {
+                    name: "Rau củ",
+                    path: ""
+                },
+                {
+                    name: "Thức ăn nhanh",
+                    path: ""
+                }
+            ]
+        },
+        {
+            name: "Bài viết",
+            path: ROUTERS.USER.BLOG
+        },
+        {
+            name: "Liên hệ",
+            path: ROUTERS.USER.CONTACTS
+        },
+    ])
+
     return (
         <>
             <div className="header_top">
@@ -66,15 +107,40 @@ const Header = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-xl-3">
-                        LOGO
+                        <div className="header_logo">
+                            <h1>Fruit Shop</h1>
+                        </div>
                     </div>
                     <div className="col-xl-6">
-                        MENU
+                        <nav className="header_menu">
+                            <ul>
+                                {
+                                    menus?.map((menu, index) => (
+                                        <li key={index} className={index === 0 ? "isActived" : ""}>
+                                            <Link to={menu?.path}>
+                                                {menu?.name}
+                                            </Link>
+                                        </li>
+                                    ))
+                                }
+                            </ul>
+                        </nav>
                     </div>
                     <div className="col-xl-3">
-                        PHONE
+                        <div className="header_cart">
+                            <div className="header_cart_price">
+                                <span>{formatter(1001230)}</span>
+                            </div>
+                            <ul>
+                                <li>
+                                    <Link to={''}>
+                                        <AiOutlineShoppingCart /> <span>5</span>
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    
+
                 </div>
             </div>
 
