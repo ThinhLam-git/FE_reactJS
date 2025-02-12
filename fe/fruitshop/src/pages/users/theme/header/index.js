@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import "./style.scss";
 import {
     AiOutlineFacebook,
@@ -12,7 +12,6 @@ import {
 import { Link } from "react-router-dom";
 import { formatter } from "utils/formatter";
 import { ROUTERS } from "utils/router";
-import { useState } from "react";
 
 const Header = () => {
 
@@ -120,6 +119,19 @@ const Header = () => {
                                             <Link to={menu?.path}>
                                                 {menu?.name}
                                             </Link>
+                                            {
+                                                menu?.child && menu?.child.length > 0 && (
+                                                    <ul className="header_submenu">
+                                                        {
+                                                            menu?.child?.map((subMenu, subIndex) => (
+                                                                <li key={`${subIndex}-${index}`}>
+                                                                    <Link to={subMenu.path}>{subMenu.name}</Link>
+                                                                </li>
+                                                            ))
+                                                        }
+                                                    </ul>
+                                                )
+                                            }
                                         </li>
                                     ))
                                 }
